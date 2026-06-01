@@ -543,7 +543,7 @@ export default function CustomerApp() {
                     <Award size={24} />
                   </div>
                   <div>
-                    <h2 className="text-xl font-serif italic text-[#1B422B]">Sadakat Kartı</h2>
+                    <h2 className="text-xl font-serif italic text-[#1B422B]">Müdavim Kart</h2>
                     <p className="text-sm font-sans text-[#1B422B]/60 mt-1">5 kahve iç, 6. <span className="font-bold text-[#D97706]">BEDAVA</span></p>
                   </div>
                 </div>
@@ -637,7 +637,7 @@ export default function CustomerApp() {
               </div>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
               {/* Birthday Card */}
               {isBirthday() ? (
                 <div id="birthday-card" className="bg-gradient-to-br from-[#1B422B] to-[#122A1C] rounded-[24px] p-6 shadow-md relative overflow-hidden group flex flex-col justify-between min-h-[160px]">
@@ -705,46 +705,6 @@ export default function CustomerApp() {
                 <p className="relative z-10 font-sans text-sm opacity-80 max-w-sm mt-auto">
                   {getLocalizedString("nutritionExplorerDesc")}
                 </p>
-              </div>
-
-              {/* Store Location Card Mini */}
-              <div 
-                className="bg-[#F8FAF7] rounded-[24px] shadow-md border border-[#1B422B]/5 relative overflow-hidden group flex flex-col justify-between min-h-[160px]"
-              >
-                <div className="absolute inset-0 z-0">
-                  <iframe 
-                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3190.170560706691!2d30.68652077651034!3d36.91030097221568!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14c38fa2207a9ee5%3A0xe54b419b4a45a278!2sY%C4%B1ld%C4%B1z%2C%20Eski%20%C3%87ak%C4%B1rlar%20Cd.%20No%3A52%20D%3A3%2C%2007050%20Muratpa%C5%9Fa%2FAntalya!5e0!3m2!1str!2str!4v1700000000000!5m2!1str!2str" 
-                    width="100%" 
-                    height="100%" 
-                    style={{ border: 0, filter: 'contrast(1.05) opacity(0.8)' }} 
-                    allowFullScreen={true} 
-                    loading="lazy" 
-                    referrerPolicy="no-referrer-when-downgrade"
-                    title="Coffee Shop Location"
-                  ></iframe>
-                </div>
-                <div className="absolute inset-0 bg-gradient-to-t from-white/95 via-white/40 to-transparent pointer-events-none z-0"></div>
-                
-                <div className="relative z-10 p-6 flex flex-col h-full bg-transparent">
-                  <div className="mt-auto">
-                    <div className="flex items-center gap-2 mb-1.5">
-                      <MapPin size={18} className="text-[#D97706]" />
-                      <span className="font-sans font-bold text-[#1B422B] text-lg">Biz Buradayız</span>
-                    </div>
-                    <p className="font-sans text-[12px] text-[#1B422B]/80 leading-relaxed mb-4 font-medium">
-                      Yıldız Mah. Eski Çakırlar Cad. Muratpaşa / Antalya
-                    </p>
-                    <a 
-                      href="https://www.google.com/maps/search/?api=1&query=Yıldız+Mah.+Eski+Çakırlar+Cad.+Nebahat+Kaya+İş+Merkezi+No%3A52C+-+3+Nolu+Dükkan%2C+07050+Muratpaşa%2FAntalya" 
-                      target="_blank" 
-                      rel="noopener noreferrer" 
-                      className="w-full bg-[#1B422B] text-white flex items-center justify-center p-3 sm:px-4 rounded-[16px] shadow-lg hover:bg-[#2B603D] hover:scale-[1.02] active:scale-95 transition-all pointer-events-auto"
-                      aria-label="Yol Tarifi Al"
-                    >
-                      <span className="font-sans font-medium text-sm">Yol Tarifi Al</span>
-                    </a>
-                  </div>
-                </div>
               </div>
 
             </div>
@@ -842,6 +802,46 @@ export default function CustomerApp() {
             </h2>
           </div>
         </div>
+
+        {/* Store Location Card Bottom */}
+        <div className="mt-16 bg-[#F8FAF7] rounded-[24px] sm:rounded-[32px] shadow-lg border border-[#1B422B]/5 relative overflow-hidden group flex flex-col md:flex-row min-h-[300px]">
+          <div className="w-full md:w-1/2 relative min-h-[250px] md:min-h-full">
+            <iframe 
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3190.170560706691!2d30.68652077651034!3d36.91030097221568!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14c38fa2207a9ee5%3A0xe54b419b4a45a278!2sY%C4%B1ld%C4%B1z%2C%20Eski%20%C3%87ak%C4%B1rlar%20Cd.%20No%3A52%20D%3A3%2C%2007050%20Muratpa%C5%9Fa%2FAntalya!5e0!3m2!1str!2str!4v1700000000000!5m2!1str!2str" 
+              width="100%" 
+              height="100%" 
+              style={{ border: 0, filter: 'contrast(1.05) opacity(0.9)', position: 'absolute', inset: 0 }} 
+              allowFullScreen={true} 
+              loading="lazy" 
+              referrerPolicy="no-referrer-when-downgrade"
+              title="Coffee Shop Location"
+            ></iframe>
+          </div>
+          
+          <div className="w-full md:w-1/2 relative z-10 p-8 sm:p-12 flex flex-col h-full bg-white md:bg-transparent">
+            <div className="my-auto">
+              <div className="flex items-center gap-3 mb-4">
+                <div className="p-3 bg-[#D97706]/10 rounded-full">
+                  <MapPin size={24} className="text-[#D97706]" />
+                </div>
+                <span className="font-serif italic text-[#1B422B] text-2xl sm:text-3xl">Biz Buradayız</span>
+              </div>
+              <p className="font-sans text-[15px] sm:text-base text-[#1B422B]/80 leading-relaxed mb-8 font-medium max-w-sm">
+                Kahve molanız için sizi bekliyoruz. Yıldız Mah. Eski Çakırlar Cad. Nebahat Kaya İş Merkezi No:52C - 3 Nolu Dükkan, Muratpaşa / Antalya
+              </p>
+              <a 
+                href="https://www.google.com/maps/search/?api=1&query=Yıldız+Mah.+Eski+Çakırlar+Cad.+Nebahat+Kaya+İş+Merkezi+No%3A52C+-+3+Nolu+Dükkan%2C+07050+Muratpaşa%2FAntalya" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                className="inline-flex bg-[#1B422B] text-white items-center justify-center py-4 px-8 rounded-[16px] shadow-lg hover:bg-[#2B603D] hover:scale-[1.02] active:scale-95 transition-all pointer-events-auto w-full sm:w-auto"
+                aria-label="Yol Tarifi Al"
+              >
+                <MapPin className="w-5 h-5 mr-2" />
+                <span className="font-sans font-bold text-sm tracking-wide">Yol Tarifi Al</span>
+              </a>
+            </div>
+          </div>
+        </div>
       </main>
       
       {/* Footer minimal info */}
@@ -916,7 +916,7 @@ export default function CustomerApp() {
                   className="flex-1 bg-[#1B422B] border border-[#1B422B]/10 p-4 rounded-2xl flex flex-col items-center justify-center hover:bg-[#2B603D] transition-colors cursor-pointer shadow-sm text-[#F8FAF7]"
                 >
                   <Award className="w-6 h-6 mb-2" />
-                  <span className="font-sans text-[11px] font-bold uppercase tracking-wider mt-1">Sadakat</span>
+                  <span className="font-sans text-[11px] font-bold uppercase tracking-wider mt-1">Müdavim Kart</span>
                 </button>
               </div>
 
@@ -1495,7 +1495,7 @@ export default function CustomerApp() {
                       </div>
                       {freeCoffeesApplied > 0 && (
                         <div className="flex justify-between font-sans text-sm text-[#2B603D] font-bold">
-                          <span>Sadakat İndirimi ({freeCoffeesApplied} Kahve)</span>
+                          <span>Müdavim İndirimi ({freeCoffeesApplied} Kahve)</span>
                           <span>-{getNumberFormatted(discountAmount)} ₺</span>
                         </div>
                       )}
@@ -1675,7 +1675,7 @@ export default function CustomerApp() {
                 <div className="w-16 h-16 bg-[#1B422B]/5 rounded-full flex items-center justify-center mx-auto mb-4 border border-[#1B422B]/10">
                   <Gift className="w-8 h-8 text-[#2B603D]" />
                 </div>
-                <h2 className="font-serif italic text-3xl text-[#1B422B]">Sadakat Kartım</h2>
+                <h2 className="font-serif italic text-3xl text-[#1B422B]">Müdavim Kartım</h2>
                 <p className="font-sans text-sm text-[#1B422B]/60 mt-2">5 kahve siparişine 1 hediye bizden!</p>
               </div>
 
