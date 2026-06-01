@@ -1,0 +1,58 @@
+{
+  "entities": {
+    "Order": {
+      "title": "Order",
+      "description": "A customer's food and beverage order.",
+      "type": "object",
+      "properties": {
+        "tableNumber": {
+          "type": "string",
+          "description": "The table number the order is placed for."
+        },
+        "status": {
+          "type": "string",
+          "enum": ["pending", "preparing", "ready", "delivered"],
+          "description": "The current status of the order."
+        },
+        "items": {
+          "type": "array",
+          "description": "The items in the order."
+        },
+        "notes": {
+          "type": "string"
+        },
+        "createdAt": {
+          "type": "timestamp"
+        },
+        "updatedAt": {
+          "type": "timestamp"
+        }
+      },
+      "required": ["tableNumber", "status", "items", "createdAt", "updatedAt"]
+    },
+    "Admin": {
+      "title": "Admin",
+      "description": "An admin user with permissions to view order and change statuses.",
+      "type": "object",
+      "properties": {
+        "email": {
+          "type": "string"
+        },
+        "role": {
+          "type": "string"
+        }
+      },
+      "required": ["email", "role"]
+    }
+  },
+  "firestore": {
+    "/orders/{orderId}": {
+      "schema": { "$ref": "#/entities/Order" },
+      "description": "Collection of all customer orders."
+    },
+    "/admins/{userId}": {
+      "schema": { "$ref": "#/entities/Admin" },
+      "description": "Collection of admin users."
+    }
+  }
+}
