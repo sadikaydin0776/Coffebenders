@@ -114,6 +114,14 @@ export default function CustomerApp() {
   const [isMusicMenuOpen, setIsMusicMenuOpen] = useState(false);
   const [currentSongIndex, setCurrentSongIndex] = useState(0);
 
+  const [toastMessage, setToastMessage] = useState<{title: string, desc?: string} | null>(null);
+  
+  const showToast = (title: string, desc?: string) => {
+    setToastMessage({ title, desc });
+    setTimeout(() => setToastMessage(null), 3500);
+  };
+
+
   const PLAYLIST = [
     { title: "Jazz Cafe (Orijinal)", url: "https://cdn.pixabay.com/download/audio/2022/11/22/audio_febc508520.mp3?filename=smooth-jazz-cafe-124618.mp3" },
     { title: "Sia - Unstoppable", url: "https://cdn.pixabay.com/download/audio/2022/03/15/audio_51c6c5a034.mp3?filename=cinematic-time-lapse-115622.mp3" },
@@ -301,7 +309,7 @@ export default function CustomerApp() {
       }, 3000);
     } catch (err) {
       console.error(err);
-      alert("Sipariş gönderilirken hata oluştu.");
+      showToast("Hata!", "Sipariş gönderilirken hata oluştu.");
     }
   };
 
@@ -658,7 +666,17 @@ export default function CustomerApp() {
                   </div>
 
                   <button 
-                    onClick={() => alert("Doğum günü hediyeniz sepete eklendi! Afiyet olsun.")}
+                    onClick={() => {
+                      const birthdayCoffee: MenuItem = {
+                        name: "Doğum Günü Kahvesi",
+                        nameEn: "Birthday Coffee",
+                        description: "Özel gününüz için bizden size küçük bir armağan.",
+                        descriptionEn: "A small gift from us for your special day.",
+                        price: 0
+                      };
+                      addToCart(birthdayCoffee);
+                      showToast("İyi Ki Doğdunuz!", "Ücretsiz kahveniz sepete eklendi.");
+                    }}
                     className="w-full mt-auto bg-gradient-to-r from-orange-400 to-orange-500 hover:from-orange-500 hover:to-orange-600 active:scale-[0.98] transition-all text-[#1B422B] font-sans font-bold tracking-wide py-3 rounded-2xl shadow-lg cursor-pointer border border-orange-300/50"
                   >
                     Hediyeni Al
@@ -826,9 +844,22 @@ export default function CustomerApp() {
                 </div>
                 <span className="font-serif italic text-[#1B422B] text-2xl sm:text-3xl">Biz Buradayız</span>
               </div>
-              <p className="font-sans text-[15px] sm:text-base text-[#1B422B]/80 leading-relaxed mb-8 font-medium max-w-sm">
+              <p className="font-sans text-[15px] sm:text-base text-[#1B422B]/80 leading-relaxed mb-6 font-medium max-w-sm">
                 Kahve molanız için sizi bekliyoruz. Yıldız Mah. Eski Çakırlar Cad. Nebahat Kaya İş Merkezi No:52C - 3 Nolu Dükkan, Muratpaşa / Antalya
               </p>
+              
+              <div className="bg-[#1B422B]/5 rounded-2xl p-4 mb-8">
+                <div className="flex items-center gap-2 mb-3">
+                  <Calendar className="w-5 h-5 text-[#2B603D]" />
+                  <span className="font-sans font-bold text-[#1B422B]">Çalışma Saatleri</span>
+                </div>
+                <div className="space-y-1.5 font-sans text-sm text-[#1B422B]/80 font-medium">
+                  <div className="flex justify-between"><span>Pazartesi - Cuma</span><span>08:00 – 23:00</span></div>
+                  <div className="flex justify-between"><span>Cumartesi</span><span>09:00 – 22:00</span></div>
+                  <div className="flex justify-between text-[#D97706] font-bold"><span>Pazar</span><span>10:00 – 20:00</span></div>
+                </div>
+              </div>
+
               <a 
                 href="https://www.google.com/maps/search/?api=1&query=Yıldız+Mah.+Eski+Çakırlar+Cad.+Nebahat+Kaya+İş+Merkezi+No%3A52C+-+3+Nolu+Dükkan%2C+07050+Muratpaşa%2FAntalya" 
                 target="_blank" 
@@ -898,14 +929,14 @@ export default function CustomerApp() {
 
               <div className="flex space-x-4 mb-6 shrink-0">
                 <button 
-                  onClick={() => { alert("Garson çağrıldı!"); setIsQuickMenuOpen(false); }}
+                  onClick={() => { showToast("Personel Çağrıldı", "İlgili personelimiz en kısa sürede masanıza gelecek."); setIsQuickMenuOpen(false); }}
                   className="flex-1 bg-white border border-[#1B422B]/10 p-4 rounded-2xl flex flex-col items-center justify-center hover:border-[#1B422B]/30 hover:bg-[#1B422B]/5 transition-colors cursor-pointer shadow-sm"
                 >
                   <Bell className="w-6 h-6 text-[#2B603D] mb-2" />
                   <span className="font-sans text-[11px] font-medium text-[#1B422B] uppercase tracking-wider mt-1">Garson</span>
                 </button>
                 <button 
-                  onClick={() => { alert("Hesap istendi!"); setIsQuickMenuOpen(false); }}
+                  onClick={() => { showToast("Hesap İstendi", "Hesabınız kısa süre içerisinde masanıza getirilecek."); setIsQuickMenuOpen(false); }}
                   className="flex-1 bg-white border border-[#1B422B]/10 p-4 rounded-2xl flex flex-col items-center justify-center hover:border-[#1B422B]/30 hover:bg-[#1B422B]/5 transition-colors cursor-pointer shadow-sm"
                 >
                   <Receipt className="w-6 h-6 text-[#2B603D] mb-2" />
@@ -1711,6 +1742,28 @@ export default function CustomerApp() {
                 <span className="font-mono text-3xl font-bold">{Math.floor(coffeeCount / 5)}</span>
               </div>
             </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* Toast Notification */}
+      <AnimatePresence>
+        {toastMessage && (
+          <motion.div
+            initial={{ opacity: 0, y: 50, scale: 0.9 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: 50, scale: 0.9 }}
+            className="fixed bottom-10 left-1/2 -translate-x-1/2 z-[250] w-full max-w-[90vw] sm:max-w-md pointer-events-none"
+          >
+            <div className="mx-auto w-fit bg-[#1B422B] text-white px-6 py-4 rounded-full shadow-[0_10px_40px_rgba(27,66,43,0.3)] flex items-center gap-4">
+              <div className="bg-[#D97706]/20 p-1.5 rounded-full shrink-0">
+                <CheckCircle2 className="w-5 h-5 text-[#D97706]" />
+              </div>
+              <div className="pointer-events-auto">
+                <p className="font-sans font-bold text-[13px] tracking-wide m-0 leading-tight">{toastMessage.title}</p>
+                {toastMessage.desc && <p className="font-sans text-[11px] opacity-80 mt-0.5 m-0">{toastMessage.desc}</p>}
+              </div>
+            </div>
           </motion.div>
         )}
       </AnimatePresence>
